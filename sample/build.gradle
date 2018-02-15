@@ -2,6 +2,7 @@ apply plugin: "com.android.application"
 
 android {
     compileSdkVersion v.sdk.compile
+    buildToolsVersion v.build.tools
     defaultConfig {
         applicationId "com.g4s8.activityservicesample"
         minSdkVersion v.sdk.min
