@@ -1,0 +1,19 @@
+ext {
+    v = [
+            gradle: '3.0.1',
+            sdk   : [
+                    compile: 27,
+                    target : 27,
+                    min    : 19
+            ],
+            build : [
+                    tools: '27.0.1'
+            ],
+            lib   : [
+                    appcompat  : '27.0.2',
+                    junit      : '4.12',
+                    robolectric: '3.6.1',
+                    constraint : '1.0.2'
+            ]
+    ]
+}

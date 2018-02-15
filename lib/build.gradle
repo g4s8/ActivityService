@@ -1,37 +1,26 @@
-apply plugin: 'com.android.library'
+apply plugin: "com.android.library"
 
 android {
-    compileSdkVersion 27
-
+    compileSdkVersion v.sdk.compile
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 27
+        minSdkVersion v.sdk.min
+        targetSdkVersion v.sdk.target
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
-
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     lintOptions {
         abortOnError true
     }
-
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:27.0.2'
-
-    testImplementation 'junit:junit:4.12'
-    testImplementation "org.robolectric:robolectric:3.6.1"
-
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation "com.android.support:appcompat-v7:${v.lib.appcompat}"
+    testImplementation "junit:junit:${v.lib.junit}"
+    testImplementation "org.robolectric:robolectric:${v.lib.robolectric}"
 }
