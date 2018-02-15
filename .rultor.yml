@@ -1,0 +1,10 @@
+docker:
+  image: g4s8/rultor-android
+
+merge:
+  script: |
+    env ANDROID_HOME=/opt/android ./gradlew clean build
+
+release:
+  script: |
+    echo $tag
