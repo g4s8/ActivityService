@@ -1,4 +1,11 @@
 apply plugin: "com.android.library"
+apply plugin: "com.github.dcendents.android-maven"
+apply plugin: "com.jfrog.bintray"
+
+group = 'com.g4s8'
+def versionMajor = System.env.TRAVIS_TAG ?: "0.1"
+def versionMinor = System.env.TRAVIS_BUILD_NUMBER ?: "-local"
+version = "${versionMajor}.${versionMinor}"
 
 android {
     compileSdkVersion v.sdk.compile
@@ -6,8 +13,8 @@ android {
     defaultConfig {
         minSdkVersion v.sdk.min
         targetSdkVersion v.sdk.target
-        versionCode 1
-        versionName "1.0"
+        versionCode System.env.TRAVIS_BUILD_NUMBER?.toInteger() ?: 1
+        versionName version
     }
     buildTypes {
         release {
@@ -20,8 +27,85 @@ android {
     }
 }
 
+configurations {
+    javadocDeps
+}
+
 dependencies {
     implementation "com.android.support:appcompat-v7:${v.lib.appcompat}"
+    javadocDeps "com.android.support:appcompat-v7:${v.lib.appcompat}"
     testImplementation "junit:junit:${v.lib.junit}"
     testImplementation "org.robolectric:robolectric:${v.lib.robolectric}"
+}
+
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.javadocDeps
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+//    archives javadocJar
+    archives sourcesJar
+}
+
+def siteUrl = 'https://github.com/g4s8/ActivityService'
+def gitUrl = 'https://github.com/g4s8/ActivityService.git'
+
+bintray {
+    user = System.env.BINTRAY_USER
+    key = System.env.BINTRAY_API_KEY
+
+    configurations = ['archives']
+    pkg {
+        repo = 'maven-android'
+        name = 'com.g4s8.activityservice'
+        licenses = ['MIT']
+        vcsUrl = gitUrl
+        websiteUrl = siteUrl
+        issueTrackerUrl = "${siteUrl}/issues"
+        labels = ['aar', 'android']
+        publicDownloadNumbers = true
+    }
+}
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                name 'Android Activity as a Service'
+                url siteUrl
+                licenses {
+                    license {
+                        name 'The MIT License (MIT)'
+                        url 'https://github.com/g4s8/ActivityService/blob/master/LICENSE'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'g4s8'
+                        name 'Kirill'
+                        email 'g4s8.public@gmail.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
 }
