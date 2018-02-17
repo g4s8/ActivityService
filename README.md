@@ -1,4 +1,9 @@
 ## Android Activity as a Service
+[![DevOps By Rultor.com](http://www.rultor.com/b/g4s8/ActivityService)](http://www.rultor.com/p/g4s8/ActivityService)
+
+[![Build Status](https://img.shields.io/travis/g4s8/ActivityService.svg?style=flat-square)](https://travis-ci.org/g4s8/ActivityService)
+[![License](https://img.shields.io/github/license/g4s8/ActivityService.svg?style=flat-square)](https://github.com/g4s8/ActivityService/blob/master/LICENSE)
+[![Bintray](https://img.shields.io/bintray/v/g4s8/maven-android/com.g4s8.activityservice.svg?style=flat-square)](https://bintray.com/g4s8/maven-android/com.g4s8.activityservice/_latestVersion)
 
 Purposed to be used in view-based applications with single `Activity`.
 
