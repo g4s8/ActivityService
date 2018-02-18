@@ -1,2 +1,2 @@
-include ':sample', ':lib'
+include ':sample', ':activityservice'
 rootProject.name = 'activityservice'

@@ -18,7 +18,7 @@ android {
 }
 
 dependencies {
-    compile project(path: ":lib")
+    compile project(path: ":activityservice")
     implementation "com.android.support:appcompat-v7:${v.lib.appcompat}"
     implementation "com.android.support.constraint:constraint-layout:${v.lib.constraint}"
 }
